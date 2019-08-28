@@ -299,7 +299,11 @@ func (m *Map) Delete(key interface{}) (res bool) {
 }
 
 func (m *Map) Length() int64 {
-	return atomic.LoadInt64(m.counter)
+	if m.counter == nil {
+		return 0
+	} else {
+		return atomic.LoadInt64(m.counter)
+	}
 }
 
 func (e *entry) delete() (hadValue bool) {
