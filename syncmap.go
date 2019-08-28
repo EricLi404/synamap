@@ -298,8 +298,8 @@ func (m *Map) Delete(key interface{}) (res bool) {
 	return res
 }
 
-func (m *Map) Length() *int64 {
-	return m.counter
+func (m *Map) Length() int64 {
+	return atomic.LoadInt64(m.counter)
 }
 
 func (e *entry) delete() (hadValue bool) {
